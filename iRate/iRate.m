@@ -849,7 +849,11 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
         if (!manual && [SKStoreReviewController class])
         {
             [self remindLater];
+            [UILabel appearance].textColor = nil;
             [SKStoreReviewController requestReview];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [UILabel appearance].textColor = [UIColor whiteColor];
+            });
         }
         else
 #endif
